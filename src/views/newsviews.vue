@@ -1,15 +1,27 @@
 <template>
-    <div class="news-wrap">
-      <Headers></Headers>
-        <div class="container" >
-            <div class="content" v-for="(item ,index) in formData" :key = "index" @click="handleClick(item.newsId)">
-               <div class="img"> <img src="../imgs/iconfont_gonggaotongzhi.png" ></div>
+    <div class="newsviews">
+         <Headers></Headers>
+         
+         <div class="container"  >
+           
+            <div 
+            class="content" 
+            v-for="(item ,index) in formData" 
+            :key = "index" 
+            @click="handleClick(item.newsId)">
+               <div class="img"> <img :src="item.pic" ></div>
                 <div class="text">
                     <div class="title">
                         {{item.title}}
                     </div>
-                    <div class="time">
+                    <div class="btm">
+                      <div class="time">
                          {{item.currentTime}}
+                      </div>
+                      <div class="watch">
+                        <i class="iconfont icon-liulanliang"></i>
+                        <span>{{item.count}}</span>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -23,75 +35,96 @@
 </template>
 
 <script>
-import Headers from "@/components/Headers.vue";
+import Headers from "@/components/Headers";
 export default {
-  name: "news",
+  name: "newsviews",
   components: {
     Headers
   },
   data() {
     return {
+      type: "",
       formData: {},
-      container: {}
+      container: {},
+      page: 1
     };
   },
   methods: {
     getData() {
-      this.$axios.get("/hhdj/news/newsList.do").then(res => {
-        console.log(res.data);
-        this.formData = res.data.rows;
-      });
+      this.$axios
+        .get(
+          `/hhdj/news/newsList.do?page=${this.page}&rows=10&type=${this.type}`
+        )
+        .then(res => {
+          console.log(res.data);
+          this.formData = res.data.rows;
+        });
     },
     handleClick(id) {
       this.$router.push(`/newDetails/${id}`);
     }
   },
   created() {
+    //   console.log(this.$route.meta);
+    this.type = this.$route.meta.type;
     this.getData();
   }
 };
 </script>
 
 <style scoped lang='scss'>
-.news-wrap {
-  margin-bottom: 80px;
+.newsviews {
   width: 7.5rem;
-  /deep/ .mint-header .mint-button {
-    display: none;
-  }
   .content {
     font-size: 18px;
     padding: 5px 10px;
     width: 7.1rem;
-    height: 90px;
+    height: 110px;
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid #f1f1f1;
     .img {
       display: block;
       margin-right: 10px;
-      width: 35px;
-      height: 75px;
-      line-height: 75px;
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
       img {
         margin-top: 15px;
         display: block;
-        width: 35px;
-        height: 35px;
-        padding: 12.5px 0;
+        width: 80px;
+        height: 80px;
+        // padding: 12.5px 0;
       }
     }
     .text {
       padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
       .title {
         color: #333;
         font-size: 16px;
         margin-bottom: 6px;
+       
       }
-      .time {
+       .btm{
         font-size: 14px;
-        color: #444;
-      }
+        color: #777;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .watch{
+          width: 60px;
+          height: 10px;
+        }
+        .iconfont{
+          width: 8px;
+          height: 8px;
+        }
+
+        }
+     
     }
   }
   .wrapper {

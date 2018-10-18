@@ -16,16 +16,28 @@ export default {
   name: "Headers",
   computed: {
     title() {
-      return this.$route.meta.title;
+      return this.$route.meta.desc;
     }
   }
 };
 </script>
 
-<style scoped >
+<style scoped lang='scss' >
 .header-wrap{
-  margin-bottom: 44px;
   height: 44px;
   width: 7.5rem;
+  z-index: 1;
+   /deep/ .mint-header {
+    background: rgb(197, 2, 6);
+    height: 44px;
+    font-size: 18px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;  
+  }
+  //  /deep/ .mint-header .mint-button {
+  //   display: none;
+  // }
 }
 </style>

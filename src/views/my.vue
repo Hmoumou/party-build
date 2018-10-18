@@ -1,17 +1,15 @@
 <template>
     <div class="my-wrap">
-          <mt-header :title="title" >
-        </mt-header> 
+        <Headers></Headers>
         <div class="user-wrap">
             <div class="user-message">
-                <div class="user-img">
-
-                </div>
-                <span v-if='isShow'>你还没有登录，请登录</span>
+                <div class="user-img" @click="goLogin"></div>
+                <span v-if='isShow'>你还没有登录哟~</span>
                 <span v-else>欢迎，{{1}}</span>
             </div>
         </div>
-         <div class="caozuo">
+        <div class="wrap-login" v-if='isLogin'>
+             <div class="caozuo">
                 <router-link class="item" to='/personalDetails'>
                <div class="left">
                     <img src="../imgs/个人信息.png" >
@@ -46,45 +44,45 @@
                退出登录
            </button>
           </div>
+        </div>
+        <div class="nologin" v-else>
+            <span  @click="goLogin">点我登录</span>
+        </div>
     </div>
 </template>
 
 <script>
 import Headers from "@/components/Headers.vue";
 export default {
+    components:{
+        Headers,
+    },
   name: "my",
   data() {
     return {
       formData: {},
-      isShow: true
+      isShow: true,
+      isLogin:false
     };
   },
   methods:{
       handlelogout(){
           
+      },
+      goLogin(){
+          this.$router.push('/login')
       }
   },
-  computed: {
-    title() {
-      return this.$route.meta.title;
-    }
-  }
+
 };
 </script>
 
 <style scoped lang='scss'>
-.my-wrap {
+.my-wrap  {
   width: 7.5rm;
-  margin-top: 44px;
-  /deep/ .mint-header {
-      z-index: 995;
-    background: rgb(197, 2, 6);
-    height: 44px;
-    font-size: 18px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+  margin-bottom: 69px;
+  /deep/ .mint-header .mint-button {
+    display: none;
   }
   .user-wrap {
     border-top: 1px solid #f1f1f1;
@@ -93,7 +91,7 @@ export default {
     font-size: 16px;
     width: 7.5rem;
     color: #f1f1f1;
-    height: 180px;
+    height: 140px;
     box-sizing: border-box;
 
     .user-message {
@@ -118,12 +116,12 @@ export default {
   .caozuo {
     font-size: 20px;
     width: 7.5rem;
-    height: 286px;
+    height: 200px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     .item {
-      padding: 10px;
+      padding: 8px;
       box-sizing: border-box;
       width: 7.5rem;
       display: flex;
@@ -168,6 +166,18 @@ export default {
          height: 1rem;
     }
   }
- 
+ .nologin{
+     margin-top: 180px;
+    
+     text-align: center;
+     font-size: 20px; 
+     span{
+        border:1px solid #c1c1c1;
+        padding: 15px;
+        border-radius: 6px;
+        background: #f3abab;
+        color: #555;
+     }
+ }
 }
 </style>

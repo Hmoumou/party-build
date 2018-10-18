@@ -30,7 +30,7 @@ export default {
 
 <style scoped lang='scss' >
 .footers {
-    z-index: 999;
+    z-index: 1;
   font-size: 14px;
   position: fixed;
   left: 0;

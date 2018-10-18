@@ -27,19 +27,19 @@
                          <img src="../imgs/icon_02.png" >
                         <p>掌上组织生活</p>
                     </router-link>
-                    <router-link class="item" to='/interact'>
+                    <router-link class="item" :to="islogin ? '/interact' : '/login'">
                         <img src="../imgs/icon_03.png" >
                         <p>党员云互动</p>
                     </router-link>
                 </div>
                 <div class="item-wrap">
-                    <router-link class="item" to='/MadeEasyone'>
+                    <router-link class="item" to='/oneclick'>
                         <img src="../imgs/icon_04.png" >
                         <p>党建一点通</p>
                     </router-link>
-                    <router-link class="item" to='/partylife'>
+                    <router-link class="item" to='/showrank'>
                          <img src="../imgs/icon_05.png" >
-                        <p>党员亮生活</p>
+                        <p>党员亮身份</p>
                     </router-link>
                     <router-link class="item" to='/today'>
                        <img src="../imgs/icon_06.png" >
@@ -55,20 +55,20 @@
            <!-- 底部菜单 -->
            <div class="footer-menu">
               <div class="left">
-                   <router-link class="left-inner" to='/inroad'>
+                   <router-link class="left-inner" to=''>
                    </router-link>
               </div>
                <div class="right">
                    <div class="item">
-                       <router-link class="inner" to='/anytimestudy'>             
+                       <router-link class="inner" to='/anystudy'>             
                         </router-link>
-                         <router-link class="inner" to='/anytimephoto'>   
+                         <router-link class="inner" to='/anyphoto'>   
                         </router-link>
                    </div>
                    <div class="item">
-                        <router-link class="inner" to='/improvement'>
+                        <router-link class="inner" to='/system'>
                         </router-link>
-                         <router-link class="inner" to='/specialactivities'> 
+                         <router-link class="inner" to='/activity'> 
                         </router-link>
                    </div>
                </div>
@@ -84,6 +84,7 @@ export default {
   name: "home",
   data() {
     return {
+        islogin:true,
       formData: {},
       carouselList:{}
     };

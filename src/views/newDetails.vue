@@ -1,10 +1,7 @@
 
 <template>
     <div class="news-wrap">
-       <mt-header :title="title" >
-            <mt-button icon='back' @click="()=>this.$router.back(-1)"
-        slot='left'></mt-button>
-        </mt-header> 
+       <Headers></Headers>
         <div class="content" :model="formData" >
             <h2>{{formData.title}}</h2>
            <div v-html='formData.content'></div>
@@ -13,8 +10,12 @@
 </template>
 
 <script>
+import Headers from '@/components/Headers.vue'
 export default {
   name: "newDetails",
+  components:{
+    Headers
+  },
   data() {
     return {
       formData: {}
@@ -32,31 +33,15 @@ export default {
   created() {
     this.getData();
   },
-  computed: {
-    title() {
-      return this.$route.meta.title;
-    }
-  }
 };
 </script>
 
 
 <style scoped lang='scss'>
 .news-wrap {
-  margin-top: 44px;
   margin-bottom: 80px;
   font-size: 18px;
   width: 7.5rem;
-  /deep/ .mint-header {
-    background: rgb(197, 2, 6);
-    height: 44px;
-    font-size: 18px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-   
-  }
    .content{
       width:7.5rem;
       font-size: 16px;
