@@ -3,7 +3,7 @@
         <!-- 头部 -->
            <div class="header-index clearfix">
                <div class="left fll">    </div>
-               <router-link to='/login' class="flr">登录</router-link>
+               <router-link to='/login' v-if='!islogin' class="flr">登录</router-link>
            </div>
            <!-- 轮播图 -->
            <div class='swipe-wrap'>
@@ -41,7 +41,7 @@
                          <img src="../imgs/icon_05.png" >
                         <p>党员亮身份</p>
                     </router-link>
-                    <router-link class="item" to='/today'>
+                    <router-link class="item" to='/Today'>
                        <img src="../imgs/icon_06.png" >
                         <p>党史上的今天</p>
                     </router-link>
@@ -84,7 +84,7 @@ export default {
   name: "home",
   data() {
     return {
-        islogin:true,
+        islogin:false,
       formData: {},
       carouselList:{}
     };

@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { MessageBox } from 'mint-ui';
     export default {
         name:'democratic',
         data(){
@@ -20,7 +21,7 @@
                 this.$router.push('/mysummary')
             },
             handle2(){
-                 this.$router.push('/login')
+                  MessageBox('提示', '此功能暂未开放');
             },
 
         },

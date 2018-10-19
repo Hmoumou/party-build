@@ -2,13 +2,19 @@
     <div class="my-wrap">
         <Headers></Headers>
         <div class="user-wrap">
-            <div class="user-message">
+            <div class="user-message" v-if="!this.$store.state.token">
                 <div class="user-img" @click="goLogin"></div>
-                <span v-if='isShow'>你还没有登录哟~</span>
-                <span v-else>欢迎，{{1}}</span>
+                <span >你还没有登录哟~</span>
+            </div>
+            <div class="user-message" v-else>
+                <img :src="img" class="user-img">
+                <span>欢迎，{{this.$store.state.userInfo.data.username}}</span>
             </div>
         </div>
-        <div class="wrap-login" v-if='isLogin'>
+         <div class="nologin" v-if="!this.$store.state.token" >
+            <span  @click="goLogin">点我登录</span>
+        </div>
+        <div class="wrap-login" v-else >
              <div class="caozuo">
                 <router-link class="item" to='/personalDetails'>
                <div class="left">
@@ -45,9 +51,7 @@
            </button>
           </div>
         </div>
-        <div class="nologin" v-else>
-            <span  @click="goLogin">点我登录</span>
-        </div>
+       
     </div>
 </template>
 
@@ -61,18 +65,28 @@ export default {
   data() {
     return {
       formData: {},
-      isShow: true,
-      isLogin:false
+      isLogin:false,
+      img:''
     };
   },
   methods:{
       handlelogout(){
-          
+         this.$store.commit('DEL_USERINFO')
+         sessionStorage.removeItem('vuex') 
       },
       goLogin(){
           this.$router.push('/login')
       }
   },
+  created(){
+      console.log(this.$store.state.userInfo);
+      if(this.$store.state.token){
+          this.isLogin = true
+          this.img = this.$store.state.userInfo.data.header
+          console.log(this.isLogin);
+        
+      }
+  }
 
 };
 </script>
@@ -102,6 +116,7 @@ export default {
       top: 55%;
       left: 50%;
       transform: translate(-50%, -50%);
+       overflow: hidden;
       .user-img {
         width: 1.5rem;
         margin-left: 1.2rem;
@@ -110,6 +125,7 @@ export default {
         background: url("../imgs/头像.png") no-repeat;
         background-size: 100% 100%;
         border-radius: 50%;
+        border:none;
       }
     }
   }
@@ -158,6 +174,7 @@ export default {
         text-align: center;
         height: 1rem;
     .btn{
+        border:none;
         font-size: 16px;
         border-radius: 6px;
         color: #f1f1f1;

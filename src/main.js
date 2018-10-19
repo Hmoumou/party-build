@@ -6,16 +6,24 @@ import router from './router'
 import $axios from './utils/index'   
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
+import uploadimg from './components/upload-com'
+
+
+import store from './store/store.js'
+
 
 
 
 Vue.prototype.$axios = $axios
 Vue.config.productionTip = false
 Vue.use(MintUI)
+
+Vue.component('upload-img',uploadimg)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  store,
+  components: { App ,},
   template: '<App/>'
 })

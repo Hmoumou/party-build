@@ -21,6 +21,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/personalDetails',
+      meta:{
+        name: 'personalDetails',
+        desc:'个人信息',
+      },
+      component:()=>import('@/views/personalDetails.vue'),
+    },
+    {
       path: '/login',
       name: 'login',
       meta:{
@@ -84,6 +92,7 @@ export default new Router({
         },
         component:()=>import('@/views/anyphoto.vue'),
       },
+      
       {
         path: '/report',
         meta:{
@@ -91,6 +100,14 @@ export default new Router({
           desc:'思想汇报'
         },
         component:()=>import('@/views/report.vue'),
+      },
+      {
+        path: '/Today',
+        meta:{
+          name: 'Today',
+          desc:'党史上的今天'
+        },
+        component:()=>import('@/views/Today.vue'),
       },
       {
         path: '/mysummary',
