@@ -24,6 +24,7 @@ export default {
 
 <style scoped lang='scss' >
 .header-wrap{
+  box-sizing: border-box;
   height: 44px;
   width: 7.5rem;
   z-index: 1;

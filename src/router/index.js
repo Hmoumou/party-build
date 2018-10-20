@@ -92,6 +92,38 @@ export default new Router({
         },
         component:()=>import('@/views/anyphoto.vue'),
       },
+      {
+        path: '/uploadimg',
+        meta:{
+          name: 'uploadimg',
+          desc:'上传图片',
+        },
+        component:()=>import('@/components/uploadimg.vue'),
+      },
+      {
+        path: '/score',
+        meta:{
+          name: 'score',
+          desc:'个人量化积分',
+        },
+        component:()=>import('@/views/score.vue'),
+      },
+      {
+        path: '/editPassword',
+        meta:{
+          name: 'editPassword',
+          desc:'修改密码',
+        },
+        component:()=>import('@/views/editPassword.vue'),
+      },
+      {
+        path: '/paymoney',
+        meta:{
+          name: 'paymoney',
+          desc:'党费缴纳',
+        },
+        component:()=>import('@/views/paymoney.vue'),
+      },
       
       {
         path: '/report',

@@ -12,7 +12,8 @@ const store = new Vuex.Store({
         "GET_USERINFO"(state,payload){
             // console.log(11);
             state.userInfo = payload
-            state.token = payload.token
+            // console.log("1234",payload)
+            state.token =payload.token
         },
         "DEL_USERINFO"(state,payload){
             state.userInfo = ''

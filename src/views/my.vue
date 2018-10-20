@@ -23,21 +23,21 @@
                </div>
                 <i class="iconfont icon-arrow-right-copy-copy"></i>
             </router-link>
-            <router-link class="item" to='/personalDetails'>
+            <router-link class="item" to='/score'>
                 <div class="left">
                     <img src="../imgs/量化积分icon.png" >
                 <span>个人量化积分</span>
                 </div>
                 <i class="iconfont icon-arrow-right-copy-copy"></i>
             </router-link>
-            <router-link class="item" to='/personalDetails'>
+            <router-link class="item" to='/uploadimg'>
                <div class="left">
                     <img src="../imgs/修改密码icon.png" >
                 <span>修改密码</span>
                </div>
                 <i class="iconfont icon-arrow-right-copy-copy"></i>
             </router-link>
-            <router-link class="item" to='/personalDetails'>
+            <router-link class="item" to='/paymoney'>
                 <div class="left">
                     <img class="last" src="../imgs/下载.png" >
                 <span>党费缴纳</span>
@@ -79,8 +79,11 @@ export default {
       }
   },
   created(){
-      console.log(this.$store.state.userInfo);
+   
+     
       if(this.$store.state.token){
+           console.log( this.$store.state.userInfo.data.header);
+              console.log(this.$store.state.userInfo);
           this.isLogin = true
           this.img = this.$store.state.userInfo.data.header
           console.log(this.isLogin);
@@ -130,13 +133,14 @@ export default {
     }
   }
   .caozuo {
-    font-size: 20px;
+    font-size: 16px;
     width: 7.5rem;
     height: 200px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     .item {
+        color: #888;
       padding: 8px;
       box-sizing: border-box;
       width: 7.5rem;
@@ -149,11 +153,13 @@ export default {
       .iconfont{
          height: 40px;
          line-height: 40px;
+         margin-right: 5px;
       }
       .left{
           height: 40px;
           line-height: 40px;
           span{
+              margin-left: 5px;
               vertical-align: 7px;
           }
       }

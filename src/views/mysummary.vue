@@ -1,30 +1,34 @@
 <template >
     <div class="mysummary">
-        <div class="wrap">
-            <upload-img class="img"></upload-img>
-            <div class="box">
-                <!-- <img :src="src" > -->
-            </div>
-            <span>请上传图片</span>
-        </div>
+        <upload v-on:load='getData' >
+            <img :src="imgurl" >
+        </upload>
         <button class="btn" @click="handle">提交审核</button>
+        
     </div>
 </template>
 
 <script>
+import upload from '@/components/uploadimg'
 import { MessageBox } from 'mint-ui';
     export default {
         name:'mysummary',
         data(){
             return{
-
+                imgurl:[],
             }
             // src:[]
         },
         methods:{
             handle(){
                 MessageBox('提示', '此功能暂未开放');
+            },
+            getData(data){
+                this.imgurl = data
             }
+        },
+        components:{
+            upload
         }
 
     }

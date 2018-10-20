@@ -13,11 +13,15 @@ instance.interceptors.request.use(function (config) {
         let token = JSON.parse(window.sessionStorage.vuex).token
         config.headers.token = token
     }
-    // console.log(config);
+    console.log(config);
+    
     if(config.method == 'post'){
+        //JSON把数据转成formdata格式
         config.data = qs.stringify(config.data)
     }
+   
     return config;
+   
     
   }, function (error) {
     // 对请求错误做些什么
