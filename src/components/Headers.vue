@@ -27,12 +27,13 @@ export default {
   box-sizing: border-box;
   height: 44px;
   width: 7.5rem;
-  z-index: 1;
+  
    /deep/ .mint-header {
     background: rgb(197, 2, 6);
     height: 44px;
     font-size: 18px;
     position: fixed;
+    z-index:9999;
     top: 0;
     left: 0;
     right: 0;  

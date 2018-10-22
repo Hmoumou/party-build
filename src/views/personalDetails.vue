@@ -6,8 +6,11 @@
     <div class="content-wrap">
         <ul class="content">
             <li>
-              <span>头像</span> 
-               <input type="file" v-if='isShow' :model="userInfo.header"> 
+              <span >头像</span> 
+              <span v-if='isShow' class="img" >
+                <uploadimg v-on:load='geturl'>
+                </uploadimg>
+                </span>
                  <span v-else><img class="img" :src="userInfo.header" >
                  </span>
                  </li>
@@ -94,26 +97,50 @@
 </template>
 
 <script>
-import Headers from "@/components/Headers";
+import uploadimg from '@/components/uploadimg.vue'
+import Headers from "@/components/Headers"
 export default {
   name: "personalDetails",
   data() {
     return {
-      userInfo: this.$store.state.userInfo.data,
+      userInfo:{},
       isShow: false
     };
   },
+  
   methods: {
+     getData(){
+       this.$axios.get('/hhdj/user/userInfo.do').then(res=>{
+        this.userInfo = res.data.data
+      })
+     },
     handleEditor() {
+      this.getData()
       this.isShow = true;
     },
+    geturl(url){
+      console.log('我是那个url',url);
+      this.userInfo.header = url
+    },
+  // getData(date){
+  //   // this.userInfo.header = data[0]
+  //   console.log(data);
+  // },
+
     handleSave() {
-      sessionStorage.setItem("vuex", this.userInfo);
+      // sessionStorage.setItem("vuex", this.userInfo);
+      this.$axios.post('/hhdj/user/modifyInfo.do',this.userInfo).then(res=>{
+        console.log('jiusiwo',res)
+        if(rea.code == 200){
+          this.getData()
+        }
+      })  
       this.isShow = false;
     }
   },
   components: {
-    Headers
+    Headers,
+    uploadimg
   },
   created() {
     console.log(this.$store.state.userInfo);

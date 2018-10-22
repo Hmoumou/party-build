@@ -118,7 +118,7 @@ export default {
           width: 60px;
           height: 10px;
         }
-        .iconfont{
+       /deep/ .icon-liulanliang{
           width: 8px;
           height: 8px;
         }

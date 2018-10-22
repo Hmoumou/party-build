@@ -27,7 +27,7 @@
                          <img src="../imgs/icon_02.png" >
                         <p>掌上组织生活</p>
                     </router-link>
-                    <router-link class="item" :to="islogin ? '/interact' : '/login'">
+                    <router-link class="item" :to="islogin ? '/yunhudong' : '/login'">
                         <img src="../imgs/icon_03.png" >
                         <p>党员云互动</p>
                     </router-link>
@@ -85,17 +85,17 @@ export default {
   data() {
     return {
         islogin:false,
-      formData: {},
+    //   formData: {},
       carouselList:{}
     };
   },
   methods: {
-    getData() {
-      this.$axios.get("/hhdj/news/newsContent.do").then(res => {
-        // console.log(res)
-        this.formData = res.data
-      });
-    },
+    // getData() {
+    //   this.$axios.get("/hhdj/news/newsContent.do").then(res => {
+    //     // console.log(res)
+    //     this.formData = res.data
+    //   });
+    // },
     getcarouselList(){
         this.$axios.get('/hhdj/carousel/carouselList.do').then(res=>{
             console.log(res.data)
@@ -107,8 +107,12 @@ export default {
     }
   },
   created() {
-    this.getData()
+    // this.getData()
     this.getcarouselList()
+    if(this.$store.state.token){
+        this.islogin=true
+    }
+
   }
 };
 </script>

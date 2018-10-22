@@ -30,7 +30,7 @@
                 </div>
                 <i class="iconfont icon-arrow-right-copy-copy"></i>
             </router-link>
-            <router-link class="item" to='/uploadimg'>
+            <router-link class="item" to='/editPassword'>
                <div class="left">
                     <img src="../imgs/修改密码icon.png" >
                 <span>修改密码</span>
@@ -72,7 +72,7 @@ export default {
   methods:{
       handlelogout(){
          this.$store.commit('DEL_USERINFO')
-         sessionStorage.removeItem('vuex') 
+         sessionStorage.clear() 
       },
       goLogin(){
           this.$router.push('/login')
@@ -150,7 +150,7 @@ export default {
       line-height: 60px;
       justify-content: space-between;
       border-bottom: 1px solid #e1e1e1;
-      .iconfont{
+     /deep/ .icon-arrow-right-copy-copy{
          height: 40px;
          line-height: 40px;
          margin-right: 5px;

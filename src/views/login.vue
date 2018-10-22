@@ -23,7 +23,7 @@ export default {//哪里来的username
   data() {
     return {
       formData: {
-        id_card: "1001",
+        id_card: "1002",
         password: "123456"
       }
     };
@@ -41,12 +41,18 @@ export default {//哪里来的username
             this.$axios.post('/hhdj/user/userLogin.do',this.formData)
             .then(res=>{
                 // console.log(res);
+                let data = res.data
                 if(res.data.code == 1){
                      MessageBox('提示', '登录成功')
-                      setTimeout(()=>{
+                        let Data = {
+                          ...this.formData,
+                          ...data
+                        }
+                        // console.log('我是那个Data',Data)
+                    this.$store.commit('GET_USERINFO',Data)
+                    setTimeout(()=>{
                         this.$router.push('/my')
                         },1000)
-                    this.$store.commit('GET_USERINFO',res.data)
                 }
             }).catch(err=>{
                 console.log(err);

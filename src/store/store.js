@@ -29,7 +29,7 @@ const store = new Vuex.Store({
               sessionStorage.setItem(key, value),
               removeItem: key => sessionStorage.removeItem(key),
             },
-          }),
+          }), 
     ]
 
 })

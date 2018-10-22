@@ -84,6 +84,24 @@ export default new Router({
         component: components.handlife
       },
       {
+        path: '/scoredetail',
+        name: 'scoredetail',
+        meta:{
+          title:"积分详情",
+          desc:'积分详情'
+        },
+        component: ()=>import ( '@/views/scoredetail')
+      },
+      {
+        path: '/yunhudong',
+        name: 'yunhudong',
+        meta:{
+          title:"党员云互动",
+          desc:'党员云互动'
+        },
+        component: ()=>import ( '@/views/yunhudong')
+      },
+      {
         path: '/anyphoto',
         meta:{
           name: 'anyphoto',
