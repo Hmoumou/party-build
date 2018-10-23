@@ -11,7 +11,7 @@ const components = {
   NewDetails:()=>import('@/views/newDetails.vue'),
   newsviews:()=>import('@/views/newsviews.vue'),
   handlife:()=>import('@/views/handlife.vue'),
-  layout2:()=>import('@/views/layout2.vue'),
+  layouttwo:()=>import('@/views/layout2.vue'),
   maps:()=>import('@/views/maps.vue'),
 }
 
@@ -43,15 +43,17 @@ export default new Router({
       children:[   
         { 
           path: 'home',
-          name:'首页',
+          name:'home',
+         meta:{
           desc:'首页',
+         },
           component: components.Home
         },
        
        
        {
         path: '/news',
-        name: '新闻早知道',
+        name: 'news',
         meta:{
           title:"通知早知道",
           desc:'通知早知道'
@@ -71,8 +73,9 @@ export default new Router({
     
   },
   {
-    path:'/layout2',
-    component: components.layout2,
+    path:'/layouttwo',
+    name:'layouttwo',
+    component: components.layouttwo,
     children:[
       {
         path: '/handlife',
@@ -92,19 +95,30 @@ export default new Router({
         },
         component: ()=>import ( '@/views/scoredetail')
       },
+     
       {
         path: '/yunhudong',
         name: 'yunhudong',
         meta:{
-          title:"党员云互动",
+          title:"yunhudong",
           desc:'党员云互动'
         },
         component: ()=>import ( '@/views/yunhudong')
       },
       {
-        path: '/anyphoto',
+        path: '/hudongdetails',
+        name: 'hudongdetails',
         meta:{
-          name: 'anyphoto',
+          title:"hudongdetails",
+          desc:'党员云互动'
+        },
+        component: ()=>import ( '@/views/hudongdetails')
+      },
+      {
+        path: '/anyphoto',
+        name: 'anyphoto',
+        meta:{
+         
           desc:'随时随地拍',
           type:7
         },
@@ -112,32 +126,36 @@ export default new Router({
       },
       {
         path: '/uploadimg',
+        name: 'uploadimg',
         meta:{
-          name: 'uploadimg',
+         
           desc:'上传图片',
         },
         component:()=>import('@/components/uploadimg.vue'),
       },
       {
         path: '/score',
+        name: 'score',
         meta:{
-          name: 'score',
+          
           desc:'个人量化积分',
         },
         component:()=>import('@/views/score.vue'),
       },
       {
         path: '/editPassword',
+        name: 'editPassword',
         meta:{
-          name: 'editPassword',
+         
           desc:'修改密码',
         },
         component:()=>import('@/views/editPassword.vue'),
       },
       {
         path: '/paymoney',
+        name: 'paymoney',
         meta:{
-          name: 'paymoney',
+          
           desc:'党费缴纳',
         },
         component:()=>import('@/views/paymoney.vue'),
@@ -145,48 +163,54 @@ export default new Router({
       
       {
         path: '/report',
+        name: 'report',
         meta:{
-          name: 'report',
+          
           desc:'思想汇报'
         },
         component:()=>import('@/views/report.vue'),
       },
       {
         path: '/Today',
+        name: 'Today',
         meta:{
-          name: 'Today',
+          
           desc:'党史上的今天'
         },
         component:()=>import('@/views/Today.vue'),
       },
       {
         path: '/mysummary',
+        name: 'mysummary',
         meta:{
-          name: 'mysummary',
+          
           desc:'个人总结'
         },
         component:()=>import('@/views/mysummary.vue'),
       },
       {
         path: '/summary',
+        name: 'summary',
         meta:{
-          name: 'summary',
+          
           desc:'心得总结'
         },
         component:()=>import('@/views/report.vue'),
       },
       {
         path: '/democratic',
+        name: 'democratic',
         meta:{
-          name: 'democratic',
+         
           desc:'民主评议'
         },
         component:()=>import('@/views/democratic.vue'),
       },
       {
         path: '/maps',
+        name: 'maps',
         meta:{
-          name: 'maps',
+          
           desc:'流动党员找组织'
         },
         component: components.maps,
@@ -214,8 +238,9 @@ export default new Router({
       },
       {
         path: '/neweyes',
+        name: 'neweyes',
         meta:{
-          name: 'neweyes',
+          
           desc:'信工新闻眼',
           type:0
         },
@@ -223,8 +248,9 @@ export default new Router({
       },
       {
         path: '/oneclick',
+         name: 'oneclick',
         meta:{
-          name: 'oneclick',
+         
           desc:'党建一点通',
           type:3
         },
@@ -232,8 +258,9 @@ export default new Router({
       },
       {
         path: '/know',
+        name: 'know',
         meta:{
-          name: 'know',
+          
           desc:'通知早知道',
           type:2
         },
@@ -241,8 +268,9 @@ export default new Router({
       },
       {
         path: '/showrank',
+        name: 'showrank',
         meta:{
-          name: 'showrank',
+         
           desc:'党员亮身份',
           type:5
         },
@@ -250,8 +278,9 @@ export default new Router({
       },
       {
         path: '/activity',
+        name: 'activity',
         meta:{
-          name: 'activity',
+          
           desc:'特色活动',
           type:1
         },
@@ -259,16 +288,18 @@ export default new Router({
       },
       {
         path: '/today',
+        name: 'today',
         meta:{
-          name: 'today',
+         
           desc:'党史上的今天',
         },
         component: components.NewDetails
       },
       {
         path: '/system',
+        name: 'system',
         meta:{
-          name: 'system',
+          
           desc:'制度建设',
           type:4
         },
@@ -276,8 +307,9 @@ export default new Router({
       },
       {
         path: '/anystudy',
+        name: 'anystudy',
         meta:{
-          name: 'anystudy',
+          
           desc:'随时随地学',
           type:6
         },
@@ -285,8 +317,9 @@ export default new Router({
       },
       {
         path: '/politicsStudy',
+        name: 'politicsStudy',
         meta:{
-          name: 'politicsStudy',
+         
           desc:'政治学习',
           type:8
 

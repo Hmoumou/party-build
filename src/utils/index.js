@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store/store'
 const  qs = require('qs')
 
 const env = process.env.NODE_ENV
@@ -16,8 +17,8 @@ instance.interceptors.request.use(function (config) {
     console.log(config);
     
     if(config.method == 'post'){
-        //JSON把数据转成formdata格式
         config.data = qs.stringify(config.data)
+        config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
    
     return config;
@@ -35,9 +36,18 @@ instance.interceptors.request.use(function (config) {
     return Promise.reject(error);
   });
 const xhr = {
+    
     get(url,data,config){
+        let token = store.state.token
+        if(token){
+            config = {
+                headers:{
+                    token:token
+                }
+            }
+        }    
         return new Promise((resolve,reject)=>{
-            instance.get(url,{params:data},config).then(res=>{
+            instance.get(url,{params:data,...config},config).then(res=>{
                 resolve(res)
             }).catch(err=>{
                 reject(err)

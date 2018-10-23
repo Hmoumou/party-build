@@ -7,11 +7,11 @@
         <ul class="content">
             <li>
               <span >头像</span> 
-              <span v-if='isShow' class="img" >
-                <uploadimg v-on:load='geturl'>
+              <span v-if='isShow' class="imgs" >
+                <uploadimg v-on:load='geturl' class="uploadimg">
                 </uploadimg>
                 </span>
-                 <span v-else><img class="img" :src="userInfo.header" >
+                 <span v-else class="img"><img class="imgs"  :src="userInfo.header" >
                  </span>
                  </li>
             <li>
@@ -97,44 +97,62 @@
 </template>
 
 <script>
-import uploadimg from '@/components/uploadimg.vue'
-import Headers from "@/components/Headers"
+import uploadimg from "@/components/uploadimg.vue";
+import Headers from "@/components/Headers";
 export default {
   name: "personalDetails",
   data() {
     return {
-      userInfo:{},
+      userInfo: {},
       isShow: false
     };
   },
-  
+
   methods: {
-     getData(){
-       this.$axios.get('/hhdj/user/userInfo.do').then(res=>{
-        this.userInfo = res.data.data
-      })
-     },
+    getData() {
+      this.$axios.get("/hhdj/user/userInfo.do").then(res => {
+        this.userInfo = res.data.data;
+        // console.log("545454", this.userInfo);
+      });
+    },
     handleEditor() {
-      this.getData()
+      this.getData();
       this.isShow = true;
     },
-    geturl(url){
-      console.log('我是那个url',url);
+    geturl(url) {
+      console.log("我是那个url", url)
       this.userInfo.header = url
     },
-  // getData(date){
-  //   // this.userInfo.header = data[0]
-  //   console.log(data);
-  // },
+    // getData(date){
+    //   // this.userInfo.header = data[0]
+    //   console.log(data);
+    // },
 
     handleSave() {
+       let updata = {
+        address: this.userInfo.address,
+        age: this.userInfo.age,
+        education: this.userInfo.education,
+        header: this.userInfo.header,
+        hometown: this.userInfo.hometown,
+        jobRank:this.userInfo.jobRank,
+        joinPartyTime:this.userInfo.joinPartyTime,
+        lastPayTime: this.userInfo.lastPayTime,
+        nation:this. userInfo.nation,
+        partyStatus:this.userInfo.partyStatus,
+        qqNum: this.userInfo.qqNum,
+        salary: this.userInfo.salary,
+        sex:this.userInfo.sex,
+        username:this. userInfo.username,
+        wxNum: this.userInfo.wxNum
+      }
       // sessionStorage.setItem("vuex", this.userInfo);
-      this.$axios.post('/hhdj/user/modifyInfo.do',this.userInfo).then(res=>{
-        console.log('jiusiwo',res)
-        if(rea.code == 200){
-          this.getData()
+      this.$axios.post("/hhdj/user/modifyInfo.do",updata).then(res=>{
+        console.log("jiusiwo", res);
+        if (res.code == 1) {
+          this.getData();
         }
-      })  
+      });
       this.isShow = false;
     }
   },
@@ -143,21 +161,19 @@ export default {
     uploadimg
   },
   created() {
-    console.log(this.$store.state.userInfo);
+    this.getData()
+    console.log('wo是你的标准',this.$store.state.userInfo);
   }
 };
 </script>
 
 <style scoped lang="scss">
 .personalDetails {
-  position: relative;
   box-sizing: border-box;
-  // padding: 10px;
   font-size: 16px;
-  height: 44px;
   width: 7.5rem;
-  z-index: 999;
   .editor {
+    z-index: 9999999;
     margin-top: 10px;
     text-align: center;
     font-size: 18px;
@@ -169,8 +185,8 @@ export default {
     height: 34px;
     color: #fff;
   }
-  .img{
-    width: 50px;
+  .imgs {
+    width: 30px;
     height: 30px;
   }
   ul {
@@ -188,7 +204,7 @@ export default {
     }
   }
   input {
-    border:none;
+    border: none;
     text-align: end;
   }
 }
