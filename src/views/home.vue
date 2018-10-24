@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import { Indicator } from 'mint-ui';
 export default {
   name: "home",
   data() {
@@ -97,9 +98,11 @@ export default {
     //   });
     // },
     getcarouselList(){
+        Indicator.open('加载中...');
         this.$axios.get('/hhdj/carousel/carouselList.do').then(res=>{
             console.log(res.data)
             this.carouselList = res.data.rows
+            Indicator.close();
         })
     },
     handleDetail(id){

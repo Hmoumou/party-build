@@ -16,7 +16,7 @@
 </template>/
 
 <script>
-import { MessageBox } from 'mint-ui';
+import { MessageBox ,Indicator } from 'mint-ui';
 export default {//哪里来的username
   name: "login",
 
@@ -33,9 +33,12 @@ export default {//哪里来的username
   },
   methods: {
     handleLogin() {
+      Indicator.open('加载中...');
         if(!this.formData.id_card || !this.formData.password){
+          Indicator.close();
             MessageBox('警告', '用户名或密码不能为空')
         }else if(this.formData.password.length <=5 ){
+          Indicator.close();
             MessageBox('警告', '密码长度不符合要求')
         }else{
             this.$axios.post('/hhdj/user/userLogin.do',this.formData)
@@ -44,6 +47,7 @@ export default {//哪里来的username
                 let data = res.data
                 if(res.data.code == 1){
                      MessageBox('提示', '登录成功')
+                     Indicator.close();
                         let Data = {
                           ...this.formData,
                           ...data

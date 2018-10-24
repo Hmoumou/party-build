@@ -36,6 +36,7 @@
 
 <script>
 import Headers from "@/components/Headers";
+import { Indicator } from 'mint-ui';
 export default {
   name: "newsviews",
   components: {
@@ -51,13 +52,16 @@ export default {
   },
   methods: {
     getData() {
+      Indicator.open('加载中...');
       this.$axios
         .get(
+          
           `/hhdj/news/newsList.do?page=${this.page}&rows=10&type=${this.type}`
         )
         .then(res => {
           console.log(res.data);
           this.formData = res.data.rows;
+          Indicator.close();
         });
     },
     handleClick(id) {

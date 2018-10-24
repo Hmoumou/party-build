@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { Indicator } from 'mint-ui';
 import Headers from "@/components/Headers.vue";
 export default {
   name: "news",
@@ -37,9 +38,11 @@ export default {
   },
   methods: {
     getData() {
+      Indicator.open('加载中...');
       this.$axios.get("/hhdj/news/newsList.do").then(res => {
         console.log(res.data);
         this.formData = res.data.rows;
+        Indicator.close();
       });
     },
     handleClick(id) {

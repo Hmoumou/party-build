@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { Indicator } from 'mint-ui';
 export default {
   name: "anyphoto",
   data() {
@@ -34,6 +35,7 @@ export default {
   },
   methods: {
     getData() {
+      Indicator.open('加载中...');
       this.$axios
         .get(
           `/hhdj/news/newsList.do?page=${this.page}&rows=10&type=${this.type}`
@@ -41,6 +43,7 @@ export default {
         .then(res => {
           console.log(res.data);
           this.formData = res.data.rows;
+          Indicator.close();
         });
     },
     handleClick(id) {

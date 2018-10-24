@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { Indicator } from 'mint-ui';
     export default {
         name:'scoredetail',
         data(){
@@ -25,11 +26,13 @@
         },
         methods:{
             getData(){
+                Indicator.open();
                 this.$axios.get(`/hhdj/integral/integralList.do?page=${this.page}&&rows=${this.rows}`)
                 .then(res=>{
                     console.log(res.data.rows)
                     this.formData = res.data.rows
                     // console.log(this.formData.typeName);
+                    ndicator.close();
                 })
             }
         },

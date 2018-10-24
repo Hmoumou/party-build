@@ -51,8 +51,7 @@
 </template>
 
 <script>
-import { Toast } from 'mint-ui';
-import { Popup } from 'mint-ui';
+import { Toast ,Indicator,Popup } from 'mint-ui';
 export default {
   name: "yunhudong",
   data() {
@@ -75,6 +74,7 @@ export default {
         this.popupVisible=true
       },
     handleup(){
+      Indicator.open();
       let content = this.say
       this.$axios.post('/hhdj/forum/saveForum.do',{content}).then(res=>{
         console.log(res);
@@ -83,6 +83,9 @@ export default {
           this.popupVisible = false
           this.say = ''
           this.getData()
+          Indicator.close();
+        }else{
+          Indicator.close();
         }
       })
     },
@@ -90,12 +93,14 @@ export default {
       this.popupVisible = false
     },
     getData() {
+      Indicator.open();
       this.$axios.get(`/hhdj/forum/forumList.do`)
         .then(res => {
         //   console.log("res就是我", res);
           if (res.data.code == 1) {
             this.formData = res.data.rows;
             // console.log(this.formData);
+            Indicator.close();
           }
         });
     }

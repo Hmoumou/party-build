@@ -8,7 +8,8 @@
 </template>
 
 <script>
-import { MessageBox } from 'mint-ui';
+import { MessageBox,Indicator} from 'mint-ui';
+
     export default {
         name:'democratic',
         data(){

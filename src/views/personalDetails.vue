@@ -97,6 +97,7 @@
 </template>
 
 <script>
+import { Indicator } from 'mint-ui';
 import uploadimg from "@/components/uploadimg.vue";
 import Headers from "@/components/Headers";
 export default {
@@ -110,14 +111,18 @@ export default {
 
   methods: {
     getData() {
+      Indicator.open('加载中...');
       this.$axios.get("/hhdj/user/userInfo.do").then(res => {
         this.userInfo = res.data.data;
         // console.log("545454", this.userInfo);
+        Indicator.close();
       });
     },
     handleEditor() {
+      Indicator.open('加载中...');
       this.getData();
       this.isShow = true;
+      Indicator.close();
     },
     geturl(url) {
       console.log("我是那个url", url)
@@ -129,6 +134,7 @@ export default {
     // },
 
     handleSave() {
+      Indicator.open('加载中...');
        let updata = {
         address: this.userInfo.address,
         age: this.userInfo.age,
@@ -151,6 +157,9 @@ export default {
         console.log("jiusiwo", res);
         if (res.code == 1) {
           this.getData();
+          Indicator.close();
+        }else{
+          Indicator.close();
         }
       });
       this.isShow = false;

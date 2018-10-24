@@ -11,6 +11,7 @@
 
 <script>
 import Headers from '@/components/Headers.vue'
+import { Indicator } from 'mint-ui';
 export default {
   name: "newDetails",
   components:{
@@ -23,10 +24,12 @@ export default {
   },
   methods: {
     getData() {
+      Indicator.open('加载中...');
       let id = this.$route.params.id;
       this.$axios.get(`/hhdj/news/newsContent.do?newsId=${id}`).then(res => {
         console.log(res.data);
         this.formData = res.data.data;
+        Indicator.close();
       });
     }
   },

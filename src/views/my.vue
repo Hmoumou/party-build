@@ -57,6 +57,7 @@
 
 <script>
 import Headers from "@/components/Headers.vue";
+import { Indicator } from 'mint-ui';
 export default {
     components:{
         Headers,
@@ -73,20 +74,22 @@ export default {
       handlelogout(){
          this.$store.commit('DEL_USERINFO')
          sessionStorage.clear() 
+        
       },
       goLogin(){
           this.$router.push('/login')
+
       }
   },
   created(){
    
      
       if(this.$store.state.token){
-           console.log( this.$store.state.userInfo.data.header);
-              console.log(this.$store.state.userInfo);
+        //    console.log( this.$store.state.userInfo.data.header);
+        //       console.log(this.$store.state.userInfo);
           this.isLogin = true
           this.img = this.$store.state.userInfo.data.header
-          console.log(this.isLogin);
+        //   console.log(this.isLogin);
         
       }
   }

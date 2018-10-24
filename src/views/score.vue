@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { Indicator } from 'mint-ui';
     export default {
         name:'score',
         data(){
@@ -101,9 +102,11 @@
         },
         methods:{
             getData(){
+                Indicator.open();
                 this.$axios.get('/hhdj/user/userInfo.do').then(res=>{
                     this.formData = res.data.data
                     // console.log(this.formData);
+                    Indicator.close();
                 })
             },
 

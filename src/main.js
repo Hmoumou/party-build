@@ -6,7 +6,7 @@ import router from './router'
 import $axios from './utils/index'   
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-
+import { Loadmore } from 'mint-ui';
 
 import store from './store/store.js'
 
@@ -16,6 +16,7 @@ import store from './store/store.js'
 Vue.prototype.$axios = $axios
 Vue.config.productionTip = false
 Vue.use(MintUI)
+Vue.component(Loadmore.name, Loadmore);
 
 /* eslint-disable no-new */
 new Vue({

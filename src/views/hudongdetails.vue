@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { Toast } from 'mint-ui';
+import { Toast, Indicator } from 'mint-ui';
 
 const  qs = require('qs')
 export default {
@@ -62,22 +62,25 @@ export default {
   },
   methods:{
       getData(){
-          
+          Indicator.open('加载中...');
            this.$axios.get(`/hhdj/forum/forumCommentList.do?page=1&rows=10&forum_id=${this.itemData.forumId}`).then(res=>{
             // console.log('我是请求 list的res',res)
             if(res.data.code == 1){
                 this.listData = res.data.rows
             //   console.log(this.listData);
+            Indicator.close();
             } 
         })
       },
       handlesubmit(item){
+          Indicator.open('加载中...');
          let forum_id = item.forumId
           this.$axios.post('/hhdj/forum/addComment.do',{forum_id,comment:this.content}).then(res=>{
             //   console.log('提交信息',res)
             Toast('回复成功')
             this.content = ''
             this.getData()
+            Indicator.close();
           })
          
       }

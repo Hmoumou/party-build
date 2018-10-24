@@ -10,9 +10,8 @@
 </template>
 
 <script>
-import { MessageBox } from 'mint-ui';
-import { Field } from 'mint-ui';
-import { Button } from 'mint-ui';
+import { MessageBox,Indicator, Button, Field } from 'mint-ui';
+
     export default {
         name:'editPassword',
          data(){
@@ -26,11 +25,14 @@ import { Button } from 'mint-ui';
             },
         methods:{
             getData(){
+                Indicator.open('加载中...');
                 this.$axios.get('/hhdj/user/userInfo.do').then(res=>{
                     console.log(res)
+                    Indicator.close();
                 })
             },
            handlesubmit(){
+                Indicator.open('加载中...');
                if(this.formData.oldps ==
                this.$store.state.userInfo.password){
                    if(this.formData.newps=this.formData.againps){
@@ -38,15 +40,19 @@ import { Button } from 'mint-ui';
                           console.log('我是res',res)
                           if(res.code == 1){
                                MessageBox('提示','修改密码成功')
+                                Indicator.close();
                            }else{
                                MessageBox('提示','密码修改错误')
+                                Indicator.close();
                            }
                        })
                    }else{
                         MessageBox('提示','两次输入密码不一致')
+                         Indicator.close();
                    }
                }else{
                    MessageBox('提示', '旧密码错误')
+                    Indicator.close();
                }
            }
         },
