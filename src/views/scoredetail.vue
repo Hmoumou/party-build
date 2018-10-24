@@ -32,7 +32,7 @@ import { Indicator } from 'mint-ui';
                     console.log(res.data.rows)
                     this.formData = res.data.rows
                     // console.log(this.formData.typeName);
-                    ndicator.close();
+                    Indicator.close();
                 })
             }
         },

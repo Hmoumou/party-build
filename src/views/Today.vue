@@ -54,10 +54,12 @@ export default {
   padding: 10px 20px 20px;
   color:#333;
   .boo{
-      border-top: 1px solid #f1f1f1;
-      margin-top: 10px;
+      border-top: 1px solid #fff;
+      padding-top: 10px;
+      margin-top: 20px;
       color: #888;
       width: 100%;
+      font-size: 14px;
       height: 30px;
       line-height: 30px;
       text-align: center;

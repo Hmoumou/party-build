@@ -1,6 +1,6 @@
 <template>
     <div class="editPassword">
-       <form class="box" >
+       <form class="box" @submit.prevent>
             <mt-field label="旧密码" type='password' placeholder="请输入旧密码" v-model="formData.oldps" ></mt-field>
             <mt-field label="新密码"  type='password' placeholder="请输入新密码" v-model="formData.newps"></mt-field>
             <mt-field label="确认密码" type='password' placeholder="请再次输入新密码" v-model="formData.againps" ></mt-field>
@@ -27,7 +27,7 @@ import { MessageBox,Indicator, Button, Field } from 'mint-ui';
             getData(){
                 Indicator.open('加载中...');
                 this.$axios.get('/hhdj/user/userInfo.do').then(res=>{
-                    console.log(res)
+                    console.log('我是userinfo',res.data)
                     Indicator.close();
                 })
             },
@@ -37,7 +37,7 @@ import { MessageBox,Indicator, Button, Field } from 'mint-ui';
                this.$store.state.userInfo.password){
                    if(this.formData.newps=this.formData.againps){
                        this.$axios.post(`/hhdj/user/updatePwd.do?newPwd=${this.formData.newps}&oldPwd=${this.formData.oldps}`).then(res=>{
-                          console.log('我是res',res)
+                          console.log('我是resaaaaaa',res)
                           if(res.code == 1){
                                MessageBox('提示','修改密码成功')
                                 Indicator.close();
@@ -58,7 +58,7 @@ import { MessageBox,Indicator, Button, Field } from 'mint-ui';
         },
         created(){
             console.log( '我是那个密码',this.$store.state.userInfo.password);
-            // this.getData()
+            this.getData()
         }
     }
 </script>

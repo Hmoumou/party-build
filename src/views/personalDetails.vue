@@ -8,8 +8,10 @@
             <li>
               <span >头像</span> 
               <span v-if='isShow' class="imgs" >
-                <uploadimg v-on:load='geturl' class="uploadimg">
-                </uploadimg>
+                <!-- <uploadimg v-on:load='geturl' class="uploadimg">
+                </uploadimg> -->
+                <span @click="changeimg" class="img"><img class="imgs"  :src="userInfo.header" >
+                 </span>
                 </span>
                  <span v-else class="img"><img class="imgs"  :src="userInfo.header" >
                  </span>
@@ -53,9 +55,9 @@
               <span>性别</span>
               <div class="sex" v-if='isShow'>
                 <input type="radio" value="1"  v-model="userInfo.sex">男
-                <input type="radio" value="2"  v-model="userInfo.sex">女
+                <input type="radio" value="0"  v-model="userInfo.sex">女
                 </div>  
-                  <span v-else>{{userInfo.sex==1?'男':'女'}}</span>
+                  <span v-else>{{userInfo.sex == 1?'男':'女'}}</span>
                   </li>
             <li>
               <span>最高学历</span> 
@@ -72,19 +74,19 @@
                  <input type="text"  v-model="userInfo.salary"  v-if='isShow'> 
                    <span v-else>{{userInfo.salary}}</span>
                    </li>
-            <li>
+            <li >
               <span>入党时间</span> 
                  <input type="date"  v-if='isShow'  v-model="userInfo.joinPartyTime">  
                    <span v-else>{{userInfo.joinPartyTime}}</span>
                    </li>
-            <li>
+            <li >
               <span>党费最后缴纳时间</span> 
                  <input type="date"  v-if='isShow'  v-model="userInfo.lastPayTime">  
                    <span v-else>{{userInfo.lastPayTime}}</span>
                    </li>
-            <li>
+            <li >
               <span>当前身份</span> 
-              <select  v-if='isShow' v-model="userInfo.partyStatus">
+              <select class="boxx"  v-if='isShow' v-model="userInfo.partyStatus">
                 <option value="2">党员</option>
                 <option value="1">预备党员</option>
                 <option value="0">积极分子</option>
@@ -92,24 +94,47 @@
                    <span v-else>{{userInfo.partyStatus==0?'积极分子':userInfo.partyStatus == 1?'预备党员':'党员'}}</span>
                    </li>
         </ul>
+        <mt-actionsheet
+          cancelText=''
+          :actions="actions"
+          v-model="sheetVisible">
+        </mt-actionsheet>
     </div>
     </div>
 </template>
 
 <script>
-import { Indicator } from 'mint-ui';
-import uploadimg from "@/components/uploadimg.vue";
+import { Indicator,Actionsheet  } from 'mint-ui';
+// import uploadimg from "@/components/uploadimg.vue";
 import Headers from "@/components/Headers";
 export default {
   name: "personalDetails",
   data() {
     return {
       userInfo: {},
-      isShow: false
+      isShow: false,
+      sheetVisible:false,
+      actions:[
+        {
+          name:'拍照',
+          method:()=>{
+
+          }
+      },
+      {
+          name:'从手机相册选择',
+          method:()=>{
+            
+          }
+      },
+      ]
     };
   },
 
   methods: {
+    changeimg(){
+      this.sheetVisible=true
+    },
     getData() {
       Indicator.open('加载中...');
       this.$axios.get("/hhdj/user/userInfo.do").then(res => {
@@ -125,7 +150,7 @@ export default {
       Indicator.close();
     },
     geturl(url) {
-      console.log("我是那个url", url)
+      // console.log("我是那个url", url)
       this.userInfo.header = url
     },
     // getData(date){
@@ -167,17 +192,18 @@ export default {
   },
   components: {
     Headers,
-    uploadimg
+    // uploadimg
   },
   created() {
     this.getData()
-    console.log('wo是你的标准',this.$store.state.userInfo);
+    // console.log('wo是你的标准',this.$store.state.userInfo);
   }
 };
 </script>
 
 <style scoped lang="scss">
 .personalDetails {
+  background: #fff;
   box-sizing: border-box;
   font-size: 16px;
   width: 7.5rem;
@@ -215,6 +241,9 @@ export default {
   input {
     border: none;
     text-align: end;
+  }
+  .boxx{
+    border:none
   }
 }
 </style>

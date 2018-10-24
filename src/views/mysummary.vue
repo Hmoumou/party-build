@@ -1,8 +1,9 @@
 <template >
     <div class="mysummary">
-        <upload v-on:load='getData' >
+        <!-- <upload v-on:load='getData' >
             <img :src="imgurl" >
-        </upload>
+        </upload> -->
+        <upuserimg></upuserimg>
         <button class="btn" @click="handle">提交审核</button>
         
     </div>
@@ -10,6 +11,7 @@
 
 <script>
 import upload from '@/components/uploadimg'
+import upuserimg from '@/components/upuserimg'
 import { MessageBox } from 'mint-ui';
     export default {
         name:'mysummary',
@@ -28,7 +30,9 @@ import { MessageBox } from 'mint-ui';
             }
         },
         components:{
-            upload
+            // upload,
+            upuserimg
+
         }
 
     }

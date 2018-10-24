@@ -2,18 +2,24 @@
     <div class="news-wrap">
       <Headers></Headers>
         <div class="container" >
-            <div class="content" v-for="(item ,index) in formData" :key = "index" @click="handleClick(item.newsId)">
-               <div class="img"> <img src="../imgs/iconfont_gonggaotongzhi.png" ></div>
-                <div class="text">
-                    <div class="title">
-                        {{item.title}}
+          <ul
+          v-infinite-scroll="loadMore"
+          infinite-scroll-disabled="loading"
+          infinite-scroll-distance="10">
+          <div class="content" v-for="(item ,index) in formData" :key = "index" @click="handleClick(item.newsId)">
+                      <div class="img"> <img src="../imgs/iconfont_gonggaotongzhi.png" ></div>
+                        <div class="text">
+                            <div class="title">
+                                {{item.title}}
+                            </div>
+                            <div class="time">
+                                {{item.currentTime}}
+                            </div>
+                        </div>
                     </div>
-                    <div class="time">
-                         {{item.currentTime}}
-                    </div>
-                </div>
-            </div>
-            <div class="wrapper">
+        </ul>
+           
+            <div class="wrapper" v-show="isshow">
               <span class="line"></span>
               <span class="cont">没有更多内容了</span>
               <span class="line"></span>
@@ -23,7 +29,7 @@
 </template>
 
 <script>
-import { Indicator } from 'mint-ui';
+import { Indicator,InfiniteScroll  } from 'mint-ui';
 import Headers from "@/components/Headers.vue";
 export default {
   name: "news",
@@ -32,17 +38,31 @@ export default {
   },
   data() {
     return {
-      formData: {},
-      container: {}
+      formData: [],
+      container: {},
+      loading:true,
+      isshow:false,
+      page:1
     };
   },
   methods: {
-    getData() {
-      Indicator.open('加载中...');
-      this.$axios.get("/hhdj/news/newsList.do").then(res => {
-        console.log(res.data);
-        this.formData = res.data.rows;
-        Indicator.close();
+    loadMore(){
+        this.page  = this.page + 1
+        this.getData()
+    },
+    getData(){
+      Indicator.open('加载中...')
+      
+      this.$axios.get(`/hhdj/news/newsList.do?page=${this.page}`).then(res => {
+        this.loading = false
+        // console.log(res.data);
+        this.formData = [...this.formData,...res.data.rows]
+         Indicator.close()
+        if(this.formData.length == res.data.total){
+          this.loading = true
+          this.isshow = true
+        }
+       
       });
     },
     handleClick(id) {
@@ -102,7 +122,6 @@ export default {
     height: 100px;
     line-height: 100px;
     text-align: center;
-    background: #fff;
   }
   .line {
     display: inline-block;

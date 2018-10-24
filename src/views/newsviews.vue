@@ -1,33 +1,38 @@
 <template>
     <div class="newsviews">
-         <Headers></Headers>
-         
+         <Headers></Headers>      
          <div class="container"  >
-           
-            <div 
-            class="content" 
-            v-for="(item ,index) in formData" 
-            :key = "index" 
-            @click="handleClick(item.newsId)">
-               <div class="img"> <img :src="item.pic" ></div>
-                <div class="text">
-                    <div class="title">
-                        {{item.title}}
-                    </div>
-                    <div class="btm">
-                      <div class="time">
-                         {{item.currentTime}}
+              <ul
+              v-infinite-scroll="loadMore"
+              infinite-scroll-immediate-check
+              infinite-scroll-disabled="loading"
+              infinite-scroll-distance="10">
+                <div 
+                  class="content" 
+                  v-for="(item ,index) in rows" 
+                  :key = "index" 
+                  @click="handleClick(item.newsId)">
+                    <div class="img"> <img :src="item.pic" ></div>
+                      <div class="text">
+                          <div class="title">
+                              {{item.title}}
+                          </div>
+                          <div class="btm">
+                            <div class="time">
+                              {{item.currentTime}}
+                            </div>
+                            <div class="watch">
+                              <i class="iconfont icon-liulanliang"></i>
+                              <span>{{item.count}}</span>
+                            </div>
+                          </div>
                       </div>
-                      <div class="watch">
-                        <i class="iconfont icon-liulanliang"></i>
-                        <span>{{item.count}}</span>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="wrapper">
+                  </div>
+              </ul>
+              
+            <div class="wrapper" v-show="isshow">
               <span class="line"></span>
-              <span class="cont">没有更多内容了</span>
+              <span class="cont">已加载全部</span>
               <span class="line"></span>
             </div>
         </div>
@@ -36,7 +41,7 @@
 
 <script>
 import Headers from "@/components/Headers";
-import { Indicator } from 'mint-ui';
+import { Indicator, Toast, MessageBox  ,InfiniteScroll } from "mint-ui";
 export default {
   name: "newsviews",
   components: {
@@ -45,25 +50,33 @@ export default {
   data() {
     return {
       type: "",
-      formData: {},
       container: {},
-      page: 1
+      page: 1,
+      isshow:false,
+      loading:true,
+      rows:[],
     };
   },
   methods: {
+    loadMore() {
+      this.page = this.page + 1
+      this.getData()
+    },
     getData() {
-      Indicator.open('加载中...');
-      this.$axios
-        .get(
-          
-          `/hhdj/news/newsList.do?page=${this.page}&rows=10&type=${this.type}`
-        )
+      Indicator.open()
+      this.$axios.get(`/hhdj/news/newsList.do?page=${this.page}&rows=10&type=${this.type}`)
         .then(res => {
-          console.log(res.data);
-          this.formData = res.data.rows;
-          Indicator.close();
+          this.loading = false
+          this.rows = [...this.rows,...res.data.rows]
+           Indicator.close()
+          if(this.rows.length == res.data.total){
+            this.loading = true  
+            this.isshow = true
+          }
+          
         });
     },
+    
     handleClick(id) {
       this.$router.push(`/newDetails/${id}`);
     }
@@ -110,25 +123,22 @@ export default {
         color: #333;
         font-size: 16px;
         margin-bottom: 6px;
-       
       }
-       .btm{
+      .btm {
         font-size: 14px;
         color: #777;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        .watch{
+        .watch {
           width: 60px;
           height: 10px;
         }
-       /deep/ .icon-liulanliang{
+        /deep/ .icon-liulanliang {
           width: 8px;
           height: 8px;
         }
-
-        }
-     
+      }
     }
   }
   .wrapper {
@@ -136,7 +146,6 @@ export default {
     height: 100px;
     line-height: 100px;
     text-align: center;
-    background: #fff;
   }
   .line {
     display: inline-block;

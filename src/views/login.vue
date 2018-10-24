@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-</template>/
+</template>
 
 <script>
 import { MessageBox ,Indicator } from 'mint-ui';
@@ -23,7 +23,7 @@ export default {//哪里来的username
   data() {
     return {
       formData: {
-        id_card: "1002",
+        id_card: "1003",
         password: "123456"
       }
     };
@@ -57,6 +57,8 @@ export default {//哪里来的username
                     setTimeout(()=>{
                         this.$router.push('/my')
                         },1000)
+                }else{
+                   Indicator.close();
                 }
             }).catch(err=>{
                 console.log(err);
